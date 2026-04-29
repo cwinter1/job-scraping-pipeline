@@ -141,6 +141,13 @@ Every generated CV runs through `_check_about_me_clarity()`: banned word scan + 
 **Debug output**
 Each scraper saves `output/SITE_debug.html` when it returns 0 results — giving a snapshot of exactly what the browser saw.
 
+**Claude Code sub-agents**
+The pipeline's development workflow uses two specialised Claude Code agents:
+- `python-reviewer` — senior Python reviewer that runs against every changed file; checks for silent failures, selector drift, bare excepts, and encoding issues specific to this scraper architecture
+- `scraper-error-resolver` — diagnoses runtime failures (Selenium crashes, API quota errors, Windows path issues, `undetected_chromedriver` destructor errors); minimal fix only, no refactoring scope creep
+
+Both agents operate against the live codebase via the Claude CLI. The same tooling used to build the pipeline also maintains it.
+
 ---
 
 ## Interview Prep Layer
